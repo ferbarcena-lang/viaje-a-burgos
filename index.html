@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="es"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Viaje a Burgos | Verano 2026&lt;/title&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS para los estilos --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- React y ReactDOM --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Babel para JSX --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Lucide Icons --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab-content { animation: fadeIn 0.3s ease-in-out; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { opacity: 0; transform: translateY(10px); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { opacity: 1; transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Ocultar barra de scroll para un look más limpio en los menús horizontales */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.no-scrollbar::-webkit-scrollbar { display: none; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="root"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/babel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { useState, useEffect } = React;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- ICONOS COMPONENTES (SVGs inline para evitar dependencias externas problemáticas) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconHome = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/&gt;&lt;polyline points="9 22 9 12 15 12 15 22"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconMap = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/&gt;&lt;line x1="9" x2="9" y1="3" y2="18"/&gt;&lt;line x1="15" x2="15" y1="6" y2="21"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconCalendar = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;rect width="18" height="18" x="3" y="4" rx="2" ry="2"/&gt;&lt;line x1="16" x2="16" y1="2" y2="6"/&gt;&lt;line x1="8" x2="8" y1="2" y2="6"/&gt;&lt;line x1="3" x2="21" y1="10" y2="10"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconUtensils = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/&gt;&lt;path d="M7 2v20"/&gt;&lt;path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconInfo = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;circle cx="12" cy="12" r="10"/&gt;&lt;path d="M12 16v-4"/&gt;&lt;path d="M12 8h.01"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconCar = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/&gt;&lt;circle cx="7" cy="17" r="2"/&gt;&lt;path d="M9 17h6"/&gt;&lt;circle cx="17" cy="17" r="2"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconWalk = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="m13 14 1 7"/&gt;&lt;path d="M13 14v-4l-3-1-1 4"/&gt;&lt;path d="M10 9 7 5l-2 1"/&gt;&lt;path d="M14 6 12 3l-2 1"/&gt;&lt;circle cx="14" cy="3" r="1"/&gt;&lt;/svg&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const IconMapPin = () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"&gt;&lt;path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/&gt;&lt;circle cx="12" cy="10" r="3"/&gt;&lt;/svg&gt;;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const App = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [activeTab, setActiveTab] = useState('inicio');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const navItems = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'inicio', label: 'Inicio', icon: IconHome },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'visitas', label: 'Qué Ver', icon: IconMap },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'provincia', label: 'Provincia', icon: IconCar },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'agenda', label: 'Agenda', icon: IconCalendar },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'comer', label: 'Comer', icon: IconUtensils },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ id: 'info', label: 'Info Útil', icon: IconInfo },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="min-h-screen pb-20 bg-slate-50 text-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{/* Header y Portada */}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-slate-800 pt-12 pb-16 px-4 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2 shadow-sm"&gt;Destino: Burgos&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-xl text-amber-400 font-light"&gt;31 Julio - 6 Agosto 2026&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="relative h-64 md:h-96 w-full max-w-4xl mx-auto px-4 -mt-12 z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;img<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Catedral_de_Burgos_-_03.jpg/1200px-Catedral_de_Burgos_-_03.jpg"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>alt="Catedral de Burgos"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>className="w-full h-full object-cover rounded-2xl shadow-xl border-4 border-white bg-slate-200"</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>onError={(e) =&gt; { e.target.style.display = 'none'; }}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{/* Main Content Area */}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;main className="max-w-4xl mx-auto p-4 md:p-6 mt-2 tab-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'inicio' &amp;&amp; &lt;TabInicio /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'visitas' &amp;&amp; &lt;TabVisitas /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'provincia' &amp;&amp; &lt;TabProvincia /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'agenda' &amp;&amp; &lt;TabAgenda /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'comer' &amp;&amp; &lt;TabComer /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{activeTab === 'info' &amp;&amp; &lt;TabInfo /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{/* Bottom Navigation */}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;nav className="fixed bottom-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="max-w-4xl mx-auto flex justify-between overflow-x-auto no-scrollbar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{navItems.map(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>const Icon = item.icon;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>const isActive = activeTab === item.id;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;button<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>key={item.id}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>onClick={() =&gt; setActiveTab(item.id)}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>className={`flex-1 min-w-[70px] flex flex-col items-center py-3 px-1 transition-colors ${isActive ? 'text-amber-700' : 'text-slate-500 hover:text-slate-700'}`}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;Icon /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;span className={`text-[10px] md:text-xs mt-1 ${isActive ? 'font-bold' : 'font-medium'}`}&gt;{item.label}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>})}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- TABS COMPONENTES ---</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabInicio = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 border-l-4 border-l-amber-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 className="text-2xl font-serif font-bold text-slate-800 mb-2"&gt;¡Bienvenidos a Burgos!&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-lg text-slate-600 mb-4 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Un viaje pensado para disfrutar con calma, comer de maravilla y empaparse de la historia de Castilla sin prisas y sin grandes esfuerzos físicos.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-amber-50 p-4 rounded-lg flex items-start gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconMapPin className="text-amber-700 mt-1 flex-shrink-0" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 className="font-bold text-amber-900"&gt;Vuestra Casa&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-amber-800 font-medium"&gt;Calle San Juan, 9, 09003 Burgos&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-amber-700 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;strong&gt;Ubicación perfecta:&lt;/strong&gt; Estáis en pleno centro histórico y peatonal. Nada más salir a la calle tendréis a un paso la Plaza de San Juan, el Monasterio de San Lesmes y calles llenas de vida. Podréis dar paseos de 5-10 minutos, sentaros a tomar un café y volver a casa sin apenas esfuerzo.</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.google.com/maps/search/?api=1&amp;query=Calle+San+Juan+9+Burgos" target="_blank" className="inline-block mt-3 px-4 py-2 bg-amber-600 text-white text-sm rounded-lg hover:bg-amber-700 transition"&gt;Ver en Mapa&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 className="text-xl font-bold mb-3"&gt;Historia, Esplendor y Geografía&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-slate-700 mb-3 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Fundada en el año 884 por el conde Diego Porcelos como fortaleza militar para frenar el avance musulmán, Burgos creció rápidamente gracias a su posición estratégica. Llegó a ser la &lt;strong&gt;"Caput Castellae" (Cabeza de Castilla)&lt;/strong&gt; y capital del reino unificado de Castilla y León.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-slate-700 mb-3 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Durante los siglos XV y XVI, Burgos vivió su época dorada gracias al &lt;strong&gt;Consulado del Mar&lt;/strong&gt;, que monopolizaba el comercio de la lana merina exportada a Flandes. Esto trajo inmensa riqueza, atrayendo a los mejores arquitectos y escultores de Europa, que llenaron la ciudad de palacios e iglesias góticas (el llamado "Gótico Isabelino").</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p className="text-slate-700 mb-3 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Es parada clave en el Camino de Santiago. Su hijo más ilustre es &lt;strong&gt;Rodrigo Díaz de Vivar, "El Cid Campeador"&lt;/strong&gt; (siglo XI), caballero medieval clave en la Reconquista, cuyos restos descansan en el centro de la Catedral.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-sky-50 p-4 rounded-lg mt-4 border border-sky-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-slate-700 leading-relaxed text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong&gt;Geografía y Clima:&lt;/strong&gt; Situada a unos 850 metros de altitud en el valle del río Arlanzón (que marca el paseo más llano y bonito de la ciudad). En agosto los días son agradables (25-30ºC) pero por las noches &lt;em&gt;siempre&lt;/em&gt; refresca (baja a 10-15ºC). ¡La "rebeca" es obligatoria al caer el sol!</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabVisitas = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p className="text-lg text-slate-600 font-medium mb-4"&gt;Las 10 joyas de la capital. Hemos priorizado la accesibilidad para no caminar demasiado.&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>{/* Tren Turístico Tip */}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-blue-50 rounded-xl p-5 border border-blue-100 shadow-sm flex gap-4 items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-blue-100 p-2 rounded-full text-blue-700 flex-shrink-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconInfo /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 className="font-bold text-blue-900 text-lg"&gt;💡 Recomendación Estrella: El Chu-Chú (Tren Turístico)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-blue-800 mt-1"&gt;Para evitar caminar, os recomiendo coger el tren turístico que sale de la Plaza del Rey San Fernando (junto a la Catedral). Hace un recorrido por el centro histórico y &lt;strong&gt;sube al Castillo&lt;/strong&gt;, que andando sería una cuesta tremenda. Perfecto para verlo todo cómodamente sentados.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="1. Santa Iglesia Catedral (Patrimonio de la Humanidad)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/b/b8/Catedral_de_Burgos_-_03.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Construida en el siglo XIII (1221), joya cumbre del gótico español. Alberga maravillas como la Escalera Dorada de Diego de Siloé, la tumba del Cid y Doña Jimena, la asombrosa Capilla de los Condestables y el famoso autómata 'Papamoscas'."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 5 mins andando desde casa. El acceso principal está adaptado y el interior es llano. Hay bancos en las capillas laterales para sentarse a contemplar."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Catedral+de+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Catedral_de_Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="2. Monasterio de Santa María la Real de las Huelgas"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/0/08/Monasterio_de_las_Huelgas_Reales_%28Burgos%29_-_Claustro_de_San_Fernando_2.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Fundado en 1187 por el rey Alfonso VIII. Era un panteón real y un monasterio de mujeres de la realeza con muchísimo poder. Conserva impresionantes sepulcros medievales y tapices."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 10 min en COCHE desde casa. Podéis aparcar cerca de la entrada. La visita es guiada pero el recorrido es casi todo en la misma planta y muy tranquilo."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Monasterio+de+las+Huelgas+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Monasterio_de_Santa_Mar%C3%ADa_la_Real_de_Las_Huelgas"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconCar/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="3. Cartuja de Miraflores"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/8/87/Cartuja_de_Miraflores_%28Burgos%29.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Ubicada en un bosque a las afueras, fue panteón de los padres de Isabel la Católica (Juan II e Isabel de Portugal). El retablo mayor de Gil de Siloé es una obra cumbre, dorado con el primer oro de América."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 15 min en COCHE. Tiene aparcamiento en la misma puerta. Visita cortita y totalmente llana en su nave central, ideal para no cansarse."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Cartuja+de+Miraflores+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Cartuja_de_Miraflores"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconCar/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="4. Museo de la Evolución Humana (MEH)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/2/29/Burgos_-_Museo_de_la_Evoluci%C3%B3n_Humana_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Edificio moderno que alberga los fósiles originales de Atapuerca, incluyendo a 'Miguelón' y los restos de los europeos más antiguos. Un viaje imprescindible al origen de la humanidad."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 5-10 min andando, todo llano. El edificio es 100% accesible (premios de accesibilidad), lleno de rampas amplias, ascensores y multitud de bancos para descansar."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Museo+de+la+Evolucion+Humana+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Museo_de_la_Evoluci%C3%B3n_Humana"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="5. Paseo del Espolón y Arco de Santa María"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/9/91/Paseo_del_Espol%C3%B3n_%28Burgos%29_02.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="El Espolón es el paseo burgués paralelo al río, creado en el s.XVIII. Termina en el Arco de Santa María, antigua puerta de la muralla medieval remodelada como un gigantesco retablo de piedra en honor al emperador Carlos V."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="Totalmente llano y pavimentado. Lleno de sombra y bancos de hierro para sentarse a mirar a la gente pasar. El paseo perfecto y sin esfuerzo."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Paseo+del+Espolon+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Arco_de_Santa_Mar%C3%ADa"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="6. Iglesia de San Nicolás de Bari"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/c/c5/Iglesia_de_San_Nicol%C3%A1s_de_Bari_%28Burgos%29_-_Retablo_Mayor_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Situada justo al lado de la Catedral. Por fuera es discreta, pero alberga en su interior uno de los retablos de piedra más asombrosos del mundo, tallado a finales del siglo XV por Simón de Colonia."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 6 mins andando, pegada a la Catedral. Es pequeña, por lo que se ve rápido sin apenas andar por su interior."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Iglesia+de+San+Nicolas+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Iglesia_de_San_Nicol%C3%A1s_de_Bari_(Burgos)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="7. Monasterio de San Juan y Museo Marceliano"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/3/3f/Monasterio_de_San_Juan_%28Burgos%29_-_Claustro_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Antiguo monasterio en ruinas cuya iglesia fue cubierta recientemente con una espectacular techumbre de madera moderna. Albergó a peregrinos del Camino de Santiago."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="¡A 1 minuto literal de vuestra casa! Está en la misma Plaza de San Juan. Todo llano y con bancos dentro."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Monasterio+de+San+Juan+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Monasterio_de_San_Juan_(Burgos)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="8. Castillo de Burgos y Mirador"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/2/22/Castillo_de_Burgos.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Fortaleza original de la fundación de la ciudad (año 884). Fue volado por las tropas de Napoleón en su retirada en 1813. El pozo que conserva es una obra de ingeniería medieval fascinante."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="Andando es muy cuesta arriba. La mejor forma: subir en el Tren Turístico que hace parada allí, o subir con vuestro COCHE (hay un parking de tierra justo en la cima). Las vistas desde el mirador al atardecer son preciosas."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Castillo+de+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Castillo_de_Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconCar/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="9. Plaza Mayor y Ayuntamiento"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/8/8a/Plaza_Mayor_de_Burgos_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Antigua plaza de mercados menores, tiene forma hexagonal irregular. El Ayuntamiento fue construido en el s.XVIII y bajo sus soportales descansan las marcas de las peores riadas del río Arlanzón."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 3 minutos andando desde casa. Totalmente llana, peatonal y llena de terrazas para sentarse a tomar algo tranquilamente."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Plaza+Mayor+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Plaza_Mayor_de_Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="10. Iglesia de San Lesmes"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/6/69/Iglesia_de_San_Lesmes_%28Burgos%29_-_Fachada.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Templo gótico donde reposan los restos de San Lesmes (patrón de Burgos), un monje francés del siglo XI que dedicó su vida a cuidar a los peregrinos enfermos del Camino de Santiago."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="¡También en vuestra calle! A un paso del portal. Totalmente llana para entrar a verla o para ir a misa."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Iglesia+de+San+Lesmes+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Iglesia_de_San_Lesmes_Abad_(Burgos)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>iconMode={&lt;IconWalk/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabProvincia = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-amber-100 text-amber-900 p-4 rounded-xl shadow-sm text-sm font-medium border border-amber-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="flex gap-2 items-center mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconCar /&gt; &lt;span className="font-bold text-base"&gt;6 Rutas Clave en Coche&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Pueblos y monasterios cerca (a menos de 1 hora). La idea es ir en coche, aparcar casi en el monumento, ver un rato, tomar un café y regresar sin cansarse.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="1. Covarrubias (La cuna de Castilla)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/4/4c/Covarrubias_%28Burgos%29.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Pueblo medieval con la arquitectura típica castellana de entramado de madera. Aquí está la tumba de la princesa noruega Kristina y de Fernán González, primer conde independiente de Castilla."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 40 min en coche al sur. Se puede aparcar en el parking a la entrada (junto al río). El centro es llano y diminuto. Paseo muy cortito entre plazas con terrazas."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Covarrubias+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Covarrubias_(Burgos)"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="2. Monasterio de Santo Domingo de Silos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/7/7b/Monasterio_de_Santo_Domingo_de_Silos_-_Claustro_02.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Su claustro románico es de los más perfectos del mundo (ojo al capitel de las aves y al famoso ciprés). Sus monjes mantienen vivo el Canto Gregoriano."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 55 min en coche. Se aparca muy cerca de la puerta. Caminata casi nula. A las 13:45 o a las 19:00 horas cantan gregoriano (entrada gratuita a la iglesia para el culto)."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Monasterio+Santo+Domingo+de+Silos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Monasterio_de_Santo_Domingo_de_Silos"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="3. Lerma (La villa Ducal)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/1/1a/Lerma_-_Plaza_Mayor_y_Palacio_Ducal_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Construida en el s.XVII por el Duque de Lerma (valido de Felipe III). Su Plaza Mayor es de las más grandes de España, presidida por el Palacio Ducal (hoy Parador)."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 30 min por autovía. Podéis subir el coche directo a la gran Plaza Mayor y aparcar allí. Desde ahí se ve todo lo principal sin cansarse."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Plaza+Mayor+Lerma+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Lerma_(Burgos)"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="4. Monasterio de San Pedro de Cardeña"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/e/ec/Monasterio_de_San_Pedro_de_Carde%C3%B1a_%28Burgos%29_-_Fachada.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Un lugar cargado de historia cidiana. Fue aquí donde El Cid dejó a su esposa Doña Jimena y a sus hijas al partir hacia el destierro. Los monjes elaboran su propio vino y licor."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="¡A solo 15 minutos de Burgos capital! Se aparca en la misma explanada del monasterio. Es una visita muy tranquila, plana y sin aglomeraciones."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Monasterio+San+Pedro+de+Cardena"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Monasterio_de_San_Pedro_de_Carde%C3%B1a"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="5. Yacimientos de Atapuerca"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/a/af/Trinchera_del_Ferrocarril._Yacimiento_de_Atapuerca.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="El enclave arqueológico más importante de Europa para entender la evolución humana. Han aparecido restos de hasta cinco especies de homínidos diferentes."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 20 min en coche (hay que reservar la visita). La 'Trinchera del Ferrocarril' por donde se hace la visita está acondicionada con pasarelas de madera planas y seguras."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Yacimientos+de+Atapuerca"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Yacimiento_arqueol%C3%B3gico_de_Atapuerca"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;PlaceCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title="6. Peñaranda de Duero"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>image="https://upload.wikimedia.org/wikipedia/commons/1/14/Pe%C3%B1aranda_de_Duero_-_Plaza_Mayor_01.jpg"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history="Un pueblo de cuento coronado por un castillo, con una Plaza Mayor espectacular donde destaca el Palacio de los Condes de Miranda (s.XVI) y una botica del siglo XVIII aún en funcionamiento."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>accessibility="A 1 hora exacta en coche hacia el sur. Se puede aparcar en las afueras de la plaza. El pueblo es llano y la plaza es deslumbrante para verla tomando algo."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>mapLink="https://www.google.com/maps/search/?api=1&amp;query=Pe%C3%B1aranda+de+Duero"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>moreInfoLink="https://es.wikipedia.org/wiki/Pe%C3%B1aranda_de_Duero"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabAgenda = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p className="text-center text-slate-500 mb-6 font-medium italic relative z-10 bg-slate-50 py-2"&gt;Una propuesta muy flexible, sin madrugones ni palizas.&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 1: Viernes 31 Jul" title="Llegada y Toma de Contacto"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Llegada a media tarde a la casa (C/ San Juan 9). Deshacer maletas. Dar un paseo cortito (10 min) hasta la Plaza de San Juan y luego hacia la Plaza Mayor. Cena ligera de pinchos cerca de casa." /&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 2: Sábado 1 Ago" title="Corazón Gótico y Tren Turístico"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Mañana: Bajar a la Catedral (apertura sobre las 10h), coger la audio-guía y recorrerla despacio. Comida. Tarde: Coger el tren turístico en la plaza para que os enseñe el Castillo y la ciudad sentaditos." /&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 3: Domingo 2 Ago" title="Monasterios en Coche"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Día de usar el coche en la propia ciudad. Mañana: Cartuja de Miraflores (paseo llano y precioso retablo). Comida de asado (ej. Casa Ojeda). Tarde: Conducir al Monasterio de las Huelgas." /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 4: Lunes 3 Ago" title="Excursión al Sur (Lerma y Covarrubias)"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Desayuno tranquilo. Coche hacia Lerma por la A1 (aparcar en la Plaza Mayor). Ver Parador y tomar un café. Seguir hasta Covarrubias (media hora). Paseo corto junto al río, comer allí. Tarde de vuelta y descanso." /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 5: Martes 4 Ago" title="Nuestros Orígenes y Vistas"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Mañana: Museo de la Evolución Humana. El edificio tiene ascensores y bancos, es muy cómodo. Tarde: Subir en coche propio al Mirador del Castillo para ver atardecer sobre las agujas de la Catedral sin subir cuestas andando." /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 6: Miércoles 5 Ago" title="Relax y el Espolón"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="Día libre. Ideal para dar un paseo llano y sombreado por el Paseo del Espolón y llegar al Arco de Santa María. Tarde de compras (dulces típicos, morcilla, quesos) para llevar de vuelta." /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;TimelineItem date="Día 7: Jueves 6 Ago" title="Despedida"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>content="A media mañana: Desayuno, recoger el coche y viaje de vuelta a casa con un montón de recuerdos preciosos." /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabComer = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p className="text-slate-600 mb-4 font-medium"&gt;Recomendaciones de precio medio. En Burgos se lleva mucho el "picoteo" o tapeo, pero también incluyo sitios de sentarse tradicionales. Todos están cerca de la casa.&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;RestaurantCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name="Cervecería Morito"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type="Tapas y Raciones ricas y económicas"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>desc="Todo un clásico para los burgaleses. Tienen de todo: bravas, cojonudos, croquetas, calamares. Siempre hay ambiente. Es de picoteo, puede que haya que esperar un poco por mesa."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>distance="A 4 minutos andando desde casa (Calle Sombrerería)."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>link="https://www.google.com/maps/search/?api=1&amp;query=Cerveceria+Morito+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;RestaurantCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name="Casa Pancho"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type="Pincho de autor y tradición"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>desc="En la mítica calle San Lorenzo (la calle de las tapas por excelencia). En la barra tienen pinchos espectaculares (probad el cojonudo o cojonuda), pero también tienen mesas al fondo para sentarse y comer en condiciones."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>distance="A 5 minutos andando desde casa."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>link="https://www.google.com/maps/search/?api=1&amp;query=Casa+Pancho+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;RestaurantCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name="Restaurante La Favorita"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type="Taberna con encanto"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>desc="Gran calidad de productos. Tienen buena barra a la entrada y restaurante para sentarse dentro. Destacan sus carnes, setas y morcilla."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>distance="A 6 minutos andando (Calle Avellanos, paralela a la vuestra)."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>link="https://www.google.com/maps/search/?api=1&amp;query=La+Favorita+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;RestaurantCard<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name="Casa Ojeda (Para darse un homenaje)"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type="Restaurante Clásico"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>desc="Es un poco más caro, pero es LA institución en Burgos. Ideal si un día queréis sentaros a comer un buen Lechazo Asado o alubias de Ibeas con una atención exquisita de las de toda la vida."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>distance="A 4 minutos andando (al lado del Cordón)."</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>link="https://www.google.com/maps/search/?api=1&amp;query=Restaurante+Casa+Ojeda+Burgos"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>/&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-orange-50 border border-orange-200 p-4 rounded-xl mt-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="font-bold text-orange-900"&gt;¿Qué comer típico?&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul className="list-disc ml-5 text-orange-800 text-sm mt-2 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;strong&gt;Morcilla de Burgos:&lt;/strong&gt; Con arroz, buenísima. Frita, asada o en revuelto.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;strong&gt;Cojonudos y Cojonudas:&lt;/strong&gt; Pincho típico (Huevo de codorniz frito, pimiento picante y rodaja de chorizo o morcilla sobre pan).&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;strong&gt;Olla Podrida:&lt;/strong&gt; Guiso de alubias rojas (de Ibeas) con sacramentos (cerdo). Contundente.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;strong&gt;Lechazo Asado:&lt;/strong&gt; Cordero lechal asado en horno de leña.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;&lt;strong&gt;Queso de Burgos:&lt;/strong&gt; Fresco, blanco. Ideal de postre con miel y nueces ("Postre del abuelo").&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TabInfo = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{/* Horarios de Misas */}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-indigo-600 px-4 py-3 flex items-center gap-2 text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconCalendar /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="font-bold text-lg"&gt;Horarios de Misas Cercanas&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="p-4 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-sm text-slate-600 mb-2"&gt;Al estar alojados en la calle San Juan, tenéis varias iglesias a 2 o 3 minutos andando. *(Nota: los horarios pueden sufrir ligeras variaciones en verano, confirmar a la llegada).*&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="border-b pb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 className="font-bold text-slate-800"&gt;1. Parroquia de San Lesmes Abad&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-slate-500 italic"&gt;¡Está en la misma calle! A 1 minuto andando. Es el patrón de la ciudad.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul className="text-sm mt-2 text-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Laborables:&lt;/strong&gt; 11:30h y 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Vísperas (Sábado tarde):&lt;/strong&gt; 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Domingos:&lt;/strong&gt; 10:00h, 11:30h, 13:00h y 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="border-b pb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 className="font-bold text-slate-800"&gt;2. Catedral (Capilla de Santa Tecla)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-slate-500 italic"&gt;Entrada libre y llana para el culto.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul className="text-sm mt-2 text-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Laborables:&lt;/strong&gt; 10:00h, 11:00h y 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Domingos y Festivos:&lt;/strong&gt; 10:00h, 11:00h, 12:00h, 13:00h, 14:00h y 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 className="font-bold text-slate-800"&gt;3. Iglesia de San Gil Abad&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-sm text-slate-500 italic"&gt;Preciosa iglesia gótica a 5 minutos andando.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul className="text-sm mt-2 text-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Laborables:&lt;/strong&gt; 19:30h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li&gt;&lt;strong&gt;Domingos:&lt;/strong&gt; 11:30h y 13:00h&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>{/* El Clima */}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-sky-500 px-4 py-3 flex items-center gap-2 text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconInfo /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 className="font-bold text-lg"&gt;El Clima en Burgos (Agosto)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex items-center justify-around py-4 border-b border-sky-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="block text-sky-800 text-sm"&gt;Día (Media)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="text-3xl font-bold text-slate-800"&gt;28°C&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="block text-sky-800 text-sm"&gt;Noche (Media)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="text-3xl font-bold text-slate-800"&gt;12°C&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-sm text-slate-600 mt-4 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>A diferencia del resto de España, Burgos en agosto es un refugio. Hace sol y buena temperatura para ir en manga corta de día, pero en cuanto se va el sol &lt;strong&gt;refresca notablemente&lt;/strong&gt;. Es imprescindible llevar chaqueta fina o jersey para las mañanas y noches.</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mt-4 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.aemet.es/es/eltiempo/prediccion/municipios/burgos-id09059" target="_blank" className="inline-block px-4 py-2 bg-sky-100 text-sky-700 font-medium text-sm rounded-lg hover:bg-sky-200 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>Ver previsión actual en AEMET</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- SUB-COMPONENTES UI ---</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const PlaceCard = ({ title, image, history, accessibility, mapLink, iconMode, moreInfoLink }) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [imgError, setImgError] = useState(false);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="w-full md:w-2/5 h-48 md:h-auto relative bg-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{!imgError ? (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;img<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>src={image}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>alt={title}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>className="w-full h-full object-cover"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>onError={() =&gt; setImgError(true)}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>) : (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="w-full h-full flex flex-col items-center justify-center p-4 text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;IconMap /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span className="text-xs mt-2 text-center"&gt;Sin vista previa disponible&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="p-5 w-full md:w-3/5 flex flex-col justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 className="text-xl font-bold text-slate-800 mb-2"&gt;{title}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-slate-600 text-sm mb-3 leading-relaxed"&gt;{history}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{moreInfoLink &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;a href={moreInfoLink} target="_blank" className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;IconInfo /&gt; Leer más sobre su historia</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="mt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="bg-green-50 p-3 rounded-lg flex items-start gap-3 border border-green-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="text-green-700 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{iconMode || &lt;IconWalk /&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-sm text-green-800 font-medium"&gt;Accesibilidad&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-xs text-green-700 mt-1"&gt;{accessibility}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href={mapLink} target="_blank" className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-amber-600 hover:text-amber-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;IconMapPin /&gt; Ver en Google Maps</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const TimelineItem = ({ date, title, content }) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="relative z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="md:w-1/2 md:ml-auto md:pl-8 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="hidden md:block absolute w-4 h-4 bg-amber-500 rounded-full border-4 border-white left-[-8px] top-1.5 shadow"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="bg-white p-5 rounded-xl shadow-sm border border-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span className="text-amber-600 font-bold text-sm tracking-wider uppercase mb-1 block"&gt;{date}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 className="text-lg font-bold text-slate-800 mb-2"&gt;{title}&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p className="text-slate-600 text-sm leading-relaxed"&gt;{content}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const RestaurantCard = ({ name, type, desc, distance, link }) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="flex justify-between items-start mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 className="text-lg font-bold text-slate-800"&gt;{name}&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span className="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-full font-medium"&gt;{type}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p className="text-sm text-slate-600 mb-3 flex-grow"&gt;{desc}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span className="text-xs font-medium text-emerald-600 flex items-center gap-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;IconWalk /&gt; {distance}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href={link} target="_blank" className="text-sm font-bold text-amber-600 hover:text-amber-800"&gt;Cómo llegar&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Renderizado inicial</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const root = ReactDOM.createRoot(document.getElementById('root'));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>root.render(&lt;App /&gt;);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
